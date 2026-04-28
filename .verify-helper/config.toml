@@ -3,4 +3,4 @@ CXX = "g++"
 
 [[languages.cpp.environments]]
 CXX = "clang++"
-CXXFLAGS = ["-std=c++17", "-Wall", "-g",]
+CXXFLAGS = ["-std=gnu++23", "-Wall", "-Wextra",]
