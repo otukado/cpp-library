@@ -21,8 +21,7 @@ jobs:
         python-version: 3.14.0
 
     - name: Install dependencies
-      run: pipx install --preinstall "setuptools<81" online-judge-verify-helper
-
+      run: pipx install --preinstall "setuptools<81" online-judge-verify-helper online-judge-tools
 
     - name: Run tests
       env:
