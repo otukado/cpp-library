@@ -21,7 +21,7 @@ jobs:
         python-version: 3.14.0
 
     - name: Install dependencies
-      run: pip3 install -U online-judge-verify-helper pkg_resources
+      run: pip3 install -U online-judge-verify-helper setuptools
 
     - name: Run tests
       env:
