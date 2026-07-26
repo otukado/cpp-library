@@ -21,12 +21,20 @@ data:
     - icon: ':heavy_check_mark:'
       path: src/data-structure/union-find.hpp
       title: src/data-structure/union-find.hpp
+  - name: src/math
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: src/math/modint.hpp
+      title: src/math/modint.hpp
   verificationCategories:
   - name: tests
     pages:
     - icon: ':heavy_check_mark:'
       path: tests/example.test.cpp
       title: tests/example.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: tests/modint.test.cpp
+      title: tests/modint.test.cpp
     - icon: ':heavy_check_mark:'
       path: tests/segment-tree.test.cpp
       title: tests/segment-tree.test.cpp
