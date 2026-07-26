@@ -2,8 +2,14 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
+    path: src/math/factorial.hpp
+    title: src/math/factorial.hpp
+  - icon: ':heavy_check_mark:'
     path: src/math/modint.hpp
     title: src/math/modint.hpp
+  - icon: ':heavy_check_mark:'
+    path: src/math/nCr.hpp
+    title: src/math/nCr.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -11,12 +17,14 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
-    PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/NTL_1_B
+    PROBLEM: https://onlinejudge.u-aizu.ac.jp/problems/DPL_5_E
     links:
-    - https://onlinejudge.u-aizu.ac.jp/problems/NTL_1_B
-  bundledCode: "#line 1 \"tests/modint.test.cpp\"\n#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/NTL_1_B\"\
-    \n\n#include <cstdint>\n#include <iostream>\n\n#line 2 \"src/math/modint.hpp\"\
-    \n\n#include <cassert>\n#line 5 \"src/math/modint.hpp\"\n\nnamespace otukado{\n\
+    - https://onlinejudge.u-aizu.ac.jp/problems/DPL_5_E
+  bundledCode: "#line 1 \"tests/nCr.test.cpp\"\n#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/DPL_5_E\"\
+    \n\n#include <cstdint>\n#include <iostream>\n\n#line 2 \"src/math/nCr.hpp\"\n\n\
+    #include <cassert>\n#line 5 \"src/math/nCr.hpp\"\n#include <vector>\n\n#line 2\
+    \ \"src/math/factorial.hpp\"\n\n#line 6 \"src/math/factorial.hpp\"\n\n#line 2\
+    \ \"src/math/modint.hpp\"\n\n#line 5 \"src/math/modint.hpp\"\n\nnamespace otukado{\n\
     \n\ntemplate<std::int64_t MOD>\nclass modint {\n    static_assert(MOD != 0);\n\
     private:\n    using i64 = std::int64_t;\n    using i128 = __int128_t;\n\n    i64\
     \ val;\n\npublic:\n    modint() : val(0) {}\n\n    modint(i64 x) : val(x % MOD)\
@@ -48,26 +56,46 @@ data:
     \ operator/(modint lhs, const modint& rhs) {\n        return lhs /= rhs;\n   \
     \ }\n\n    friend bool operator==(const modint& lhs, const modint& rhs) {\n  \
     \      return lhs.val == rhs.val;\n    }\n};\n\n\n}; //namespace otukado\n#line\
-    \ 7 \"tests/modint.test.cpp\"\n\nint main() {\n    std::int64_t m;\n    std::int64_t\
-    \ n;\n    std::cin >> m >> n;\n    std::cout << otukado::modint<1'000'000'007>(m).pow(n).value()\
-    \ << '\\n';\n}\n"
-  code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/NTL_1_B\"\n\n\
-    #include <cstdint>\n#include <iostream>\n\n#include \"src/math/modint.hpp\"\n\n\
-    int main() {\n    std::int64_t m;\n    std::int64_t n;\n    std::cin >> m >> n;\n\
-    \    std::cout << otukado::modint<1'000'000'007>(m).pow(n).value() << '\\n';\n\
-    }\n"
+    \ 8 \"src/math/factorial.hpp\"\n\nnamespace otukado {\n\ntemplate<std::int64_t\
+    \ MOD>\nclass Factorial {\npublic:\n    using mint = modint<MOD>;\n\nprivate:\n\
+    \    std::int64_t max_n;\n    std::vector<mint> fact;\n\npublic:\n    explicit\
+    \ Factorial(std::int64_t max_n) : max_n(max_n) {\n        assert(max_n >= 0);\n\
+    \n        fact.resize(max_n + 1);\n        fact[0] = 1;\n        for (std::int64_t\
+    \ i = 1; i <= max_n; ++i) {\n            fact[i] = fact[i - 1] * mint(i);\n  \
+    \      }\n    }\n\n    mint operator()(std::int64_t n) const {\n        assert(0\
+    \ <= n && n <= max_n);\n        return fact[n];\n    }\n};\n\n} // namespace otukado\n\
+    #line 8 \"src/math/nCr.hpp\"\n\nnamespace otukado {\n\ntemplate<std::int64_t MOD>\n\
+    class nCr {\npublic:\n    using mint = typename Factorial<MOD>::mint;\n\nprivate:\n\
+    \    std::int64_t max_n;\n    Factorial<MOD> fact;\n    std::vector<mint> inv_fact;\n\
+    \npublic:\n    explicit nCr(std::int64_t max_n) : max_n(max_n), fact(max_n) {\n\
+    \        assert(max_n >= 0);\n\n        inv_fact.resize(max_n + 1);\n\n      \
+    \  inv_fact[max_n] = fact(max_n).inv();\n        for (std::int64_t i = max_n;\
+    \ i > 0; --i) {\n            inv_fact[i - 1] = inv_fact[i] * mint(i);\n      \
+    \  }\n    }\n\n    mint operator()(std::int64_t n, std::int64_t r) const {\n \
+    \       if (n < 0 || r < 0 || r > n) return 0;\n        assert(n <= max_n);\n\n\
+    \        return fact(n) * inv_fact[r] * inv_fact[n - r];\n    }\n};\n\n} // namespace\
+    \ otukado\n#line 7 \"tests/nCr.test.cpp\"\n\nint main() {\n    std::int64_t n;\n\
+    \    std::int64_t k;\n    std::cin >> n >> k;\n\n    const otukado::nCr<1'000'000'007>\
+    \ combination(k);\n    std::cout << combination(k, n).value() << '\\n';\n}\n"
+  code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/problems/DPL_5_E\"\n\n\
+    #include <cstdint>\n#include <iostream>\n\n#include \"src/math/nCr.hpp\"\n\nint\
+    \ main() {\n    std::int64_t n;\n    std::int64_t k;\n    std::cin >> n >> k;\n\
+    \n    const otukado::nCr<1'000'000'007> combination(k);\n    std::cout << combination(k,\
+    \ n).value() << '\\n';\n}\n"
   dependsOn:
+  - src/math/nCr.hpp
+  - src/math/factorial.hpp
   - src/math/modint.hpp
   isVerificationFile: true
-  path: tests/modint.test.cpp
+  path: tests/nCr.test.cpp
   requiredBy: []
   timestamp: '2026-07-26 10:31:08+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
-documentation_of: tests/modint.test.cpp
+documentation_of: tests/nCr.test.cpp
 layout: document
 redirect_from:
-- /verify/tests/modint.test.cpp
-- /verify/tests/modint.test.cpp.html
-title: tests/modint.test.cpp
+- /verify/tests/nCr.test.cpp
+- /verify/tests/nCr.test.cpp.html
+title: tests/nCr.test.cpp
 ---

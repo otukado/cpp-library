@@ -2,16 +2,19 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy: []
-  _extendedVerifiedWith: []
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: tests/trie.test.cpp
+    title: tests/trie.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 2 \"src/data-structure/trie.hpp\"\n#include <array>\n#include\
     \ <vector>\n#include <string>\n\nnamespace otukado {\n\n\nstruct Node {\n    Node*\
     \ parent = nullptr;\n    std::array<Node*, 26> children{};\n\n    char alphabet\
-    \ = '$';\n    char num = 0;\n    bool is_end = false;\n\n    Node() = default;\n\
+    \ = '$';\n    int num = 0;\n    bool is_end = false;\n\n    Node() = default;\n\
     \    Node(Node* par, char alp) : parent(par), alphabet(alp) {}\n\n    ~Node()\
     \ {\n        for(auto& child : this->children) {\n            delete child;\n\
     \        }\n    }\n};\n\nstruct Trie {\n    Node* root = new Node();\n\n    ~Trie()\
@@ -33,14 +36,14 @@ data:
     \ {\n                auto parent = curr->parent;\n                parent->children[curr->alphabet\
     \ - 'a'] = nullptr;\n                delete curr;\n                curr = parent;\n\
     \            } else {\n                --curr->num;\n                curr = curr->parent;\n\
-    \            } \n        }\n    };\n\n    int count_prefix(std::string perfix)\
-    \ {\n        auto curr = this->root;\n        for(const char& c : perfix) {\n\
-    \            if(curr->children[c-'a'] == nullptr) return 0;\n            curr\
+    \            } \n        }\n        --curr->num;\n    };\n\n    int count_prefix(std::string\
+    \ perfix) {\n        auto curr = this->root;\n        for(const char& c : perfix)\
+    \ {\n            if(curr->children[c-'a'] == nullptr) return 0;\n            curr\
     \ = curr->children[c - 'a'];\n        }\n        return curr->num;\n    }\n};\n\
-    \n\n} // namespace otukado\n\n"
+    \n\n} // namespace otukado\n"
   code: "#pragma once\n#include <array>\n#include <vector>\n#include <string>\n\n\
     namespace otukado {\n\n\nstruct Node {\n    Node* parent = nullptr;\n    std::array<Node*,\
-    \ 26> children{};\n\n    char alphabet = '$';\n    char num = 0;\n    bool is_end\
+    \ 26> children{};\n\n    char alphabet = '$';\n    int num = 0;\n    bool is_end\
     \ = false;\n\n    Node() = default;\n    Node(Node* par, char alp) : parent(par),\
     \ alphabet(alp) {}\n\n    ~Node() {\n        for(auto& child : this->children)\
     \ {\n            delete child;\n        }\n    }\n};\n\nstruct Trie {\n    Node*\
@@ -63,18 +66,19 @@ data:
     \ = curr->parent;\n                parent->children[curr->alphabet - 'a'] = nullptr;\n\
     \                delete curr;\n                curr = parent;\n            } else\
     \ {\n                --curr->num;\n                curr = curr->parent;\n    \
-    \        } \n        }\n    };\n\n    int count_prefix(std::string perfix) {\n\
-    \        auto curr = this->root;\n        for(const char& c : perfix) {\n    \
-    \        if(curr->children[c-'a'] == nullptr) return 0;\n            curr = curr->children[c\
-    \ - 'a'];\n        }\n        return curr->num;\n    }\n};\n\n\n} // namespace\
-    \ otukado\n\n"
+    \        } \n        }\n        --curr->num;\n    };\n\n    int count_prefix(std::string\
+    \ perfix) {\n        auto curr = this->root;\n        for(const char& c : perfix)\
+    \ {\n            if(curr->children[c-'a'] == nullptr) return 0;\n            curr\
+    \ = curr->children[c - 'a'];\n        }\n        return curr->num;\n    }\n};\n\
+    \n\n} // namespace otukado\n"
   dependsOn: []
   isVerificationFile: false
   path: src/data-structure/trie.hpp
   requiredBy: []
-  timestamp: '2026-07-24 12:16:11+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
+  timestamp: '2026-07-26 10:31:08+09:00'
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - tests/trie.test.cpp
 documentation_of: src/data-structure/trie.hpp
 layout: document
 redirect_from:
