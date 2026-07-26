@@ -3,10 +3,10 @@ data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
     path: src/math/factorial.hpp
-    title: src/math/factorial.hpp
+    title: Factorial
   - icon: ':heavy_check_mark:'
     path: src/math/modint.hpp
-    title: src/math/modint.hpp
+    title: ModInt
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false

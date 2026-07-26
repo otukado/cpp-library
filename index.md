@@ -5,33 +5,33 @@ data:
     pages:
     - icon: ':heavy_check_mark:'
       path: src/data-structure/binary-search.hpp
-      title: src/data-structure/binary-search.hpp
+      title: Binary Search
     - icon: ':heavy_check_mark:'
       path: src/data-structure/hash-table.hpp
-      title: src/data-structure/hash-table.hpp
+      title: Hash Table
     - icon: ':heavy_check_mark:'
       path: src/data-structure/prefix2d.hpp
-      title: src/data-structure/prefix2d.hpp
+      title: Prefix Sum 2D
     - icon: ':heavy_check_mark:'
       path: src/data-structure/segment-tree.hpp
-      title: src/data-structure/segment-tree.hpp
+      title: Segment Tree
     - icon: ':heavy_check_mark:'
       path: src/data-structure/trie.hpp
-      title: src/data-structure/trie.hpp
+      title: Trie
     - icon: ':heavy_check_mark:'
       path: src/data-structure/union-find.hpp
-      title: src/data-structure/union-find.hpp
+      title: Union-Find
   - name: src/math
     pages:
     - icon: ':heavy_check_mark:'
       path: src/math/factorial.hpp
-      title: src/math/factorial.hpp
+      title: Factorial
     - icon: ':heavy_check_mark:'
       path: src/math/modint.hpp
-      title: src/math/modint.hpp
+      title: ModInt
     - icon: ':heavy_check_mark:'
       path: src/math/nCr.hpp
-      title: src/math/nCr.hpp
+      title: nCr
   verificationCategories:
   - name: tests
     pages:

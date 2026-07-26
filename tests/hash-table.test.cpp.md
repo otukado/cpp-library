@@ -3,7 +3,7 @@ data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
     path: src/data-structure/hash-table.hpp
-    title: src/data-structure/hash-table.hpp
+    title: Hash Table
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false

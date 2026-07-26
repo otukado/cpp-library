@@ -3,7 +3,7 @@ data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
     path: src/data-structure/binary-search.hpp
-    title: src/data-structure/binary-search.hpp
+    title: Binary Search
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false

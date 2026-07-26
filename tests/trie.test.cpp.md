@@ -3,7 +3,7 @@ data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
     path: src/data-structure/trie.hpp
-    title: src/data-structure/trie.hpp
+    title: Trie
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false

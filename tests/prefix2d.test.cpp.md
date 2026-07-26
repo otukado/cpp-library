@@ -3,7 +3,7 @@ data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
     path: src/data-structure/prefix2d.hpp
-    title: src/data-structure/prefix2d.hpp
+    title: Prefix Sum 2D
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
