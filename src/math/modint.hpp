@@ -3,6 +3,9 @@
 #include <cassert>
 #include <cstdint>
 
+namespace otukado{
+
+
 template<std::int64_t MOD>
 class modint {
     static_assert(MOD != 0);
@@ -115,3 +118,6 @@ public:
         return lhs.val == rhs.val;
     }
 };
+
+
+}; //namespace otukado

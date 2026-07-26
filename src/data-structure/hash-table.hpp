@@ -1,22 +1,26 @@
 #pragma once
-#include <string>
-#include <vector>
+
+#include <algorithm>
+#include <cstdint>
 #include <list>
 #include <optional>
-#include <cstdint>
+#include <string>
+#include <utility>
+#include <vector>
 
 using u64 = std::uint64_t;
 
-u64 calculate_hash(std::string);
+inline u64 calculate_hash(const std::string& key);
 
 // T と BUCKET_SIZE を指定する
 template<typename K, typename V>
 struct HashTable {
     // size によって動的に HashTable 内でサイズを変更したい
-    vector<list<pair<K, V>>> table = vector<list<pair<K, V>>>(3);
-    int _size;
-    inline static vector<u64> primes = {2}; // 全ての HashTable で共有したい
-    inline static vector<bool> is_prime;
+    std::vector<std::list<std::pair<K, V>>> table =
+        std::vector<std::list<std::pair<K, V>>>(3);
+    int _size = 0;
+    inline static std::vector<u64> primes = {2}; // 全ての HashTable で共有したい
+    inline static std::vector<bool> is_prime;
 
 
     bool put(K key, V value) {
@@ -33,11 +37,11 @@ struct HashTable {
     };
 
     // key がなければ nullopt を返す(error 投げない)
-    optional<V> get(K key) {
+    std::optional<V> get(K key) {
         for(const auto & element : this->get_bucket(key)) {
             if(element.first == key) return element.second;
         }
-        return nullopt;
+        return std::nullopt;
     };
 
     bool erase(K key) {
@@ -66,11 +70,10 @@ struct HashTable {
         // primes から bucket_size を決定する
         if((int) primes.back() < (int) this->size() * 5) expand_prime((int) this->size() * 10); // TODO: 素数表をいつ大きくするか考える
          
-        const int x = *(lower_bound(this->primes.begin(), this->primes.end(), this->size() * 3)); // TODO: size の何倍にするか考える
+        const int x = *std::lower_bound(this->primes.begin(), this->primes.end(), this->size() * 3); // TODO: size の何倍にするか考える
         auto copied = this->table;
         this->table.clear();
         this->table.resize(x);
-        cout << x << '\n';
         // copied から resize した table に詰め直す
         for(const auto & bucket : copied) {
             for(const auto & element : bucket) {
@@ -90,7 +93,7 @@ struct HashTable {
                 if(max_prime < i) {
                     primes.push_back(i);
                 }
-                for(int j = max(2, max_prime / i); i * j <= next_size; ++j) {
+                for(int j = std::max(2, max_prime / i); i * j <= next_size; ++j) {
                     is_prime[i * j] = false;
                 }
             }
@@ -111,10 +114,10 @@ struct HashTable {
 };
 
 // hash 計算の本体。外にあるべき。string 用
-u64 calculate_hash(std::string key) {
+inline u64 calculate_hash(const std::string& key) {
     u64 hash = 0;
     for(const auto & c : key) {
-        hash += c - 'a'; // TODO: hash 計算考える
+        hash = hash * 1'000'003 + static_cast<unsigned char>(c);
     }
     return hash;
 };

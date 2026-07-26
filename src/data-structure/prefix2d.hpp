@@ -1,5 +1,7 @@
 #pragma once
-#include<vector>
+
+#include <cassert>
+#include <vector>
 
 namespace otukado {
 
@@ -7,23 +9,23 @@ namespace otukado {
 template<typename T>
 class Prefix2D {
 private:
-    std::vector<std::vector<T>> data;
+    std::vector<std::vector<T>> raw_data;
     std::vector<std::vector<T>> prefix_data;
     int h;
     int w;
     
 public:
     Prefix2D() = delete;
-    Prefix2D(std::vector<std::vector<T>> _data) : data(_data){
-        assert(!data.empty());
-        h = data.size();
-        w = data[0].size();
+    Prefix2D(std::vector<std::vector<T>> _data) : raw_data(_data){
+        assert(!raw_data.empty());
+        h = raw_data.size();
+        w = raw_data[0].size();
 
         prefix_data.resize(h + 1, std::vector<T>(w + 1));
         for(int i = 0; i < h; ++i) {
-            assert(w == data[i].size());
+            assert(w == static_cast<int>(raw_data[i].size()));
             for(int j = 0; j < w; ++j) {
-                prefix_data[i + 1][j + 1] = data[i][j];
+                prefix_data[i + 1][j + 1] = raw_data[i][j];
             }
         }
         calculate();
@@ -54,7 +56,7 @@ public:
         return prefix_data[c + 1][d + 1] + prefix_data[a][b] - prefix_data[a][d + 1] - prefix_data[c + 1][b];
     }
 
-    auto data(){
+    auto data() const {
         return prefix_data;
     }
 };
