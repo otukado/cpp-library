@@ -11,7 +11,7 @@ struct Node {
     std::array<Node*, 26> children{};
 
     char alphabet = '$';
-    char num = 0;
+    int num = 0;
     bool is_end = false;
 
     Node() = default;
@@ -75,6 +75,7 @@ struct Trie {
                 curr = curr->parent;
             } 
         }
+        --curr->num;
     };
 
     int count_prefix(std::string perfix) {
@@ -89,4 +90,3 @@ struct Trie {
 
 
 } // namespace otukado
-

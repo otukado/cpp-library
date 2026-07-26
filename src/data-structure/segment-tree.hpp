@@ -1,16 +1,25 @@
 #pragma once
 #include<vector>
 #include <cassert>
+#include <type_traits>
 
 namespace otukado {
 
 
-template<typename T, T e, auto op> //SegmentTree<int, 0, [&](int a, int b)-> int {return max(a, b)}>
+template<typename T, auto e, auto op>
 class SegmentTree {
 private:
     int n;
     int size;
     std::vector<T> data;
+
+    static T identity() {
+        if constexpr (std::is_invocable_r_v<T, decltype(e)>) {
+            return e();
+        } else {
+            return e;
+        }
+    }
     
 public:
     class Proxy {
@@ -66,14 +75,14 @@ public:
         assert(n >= 0);
         size = 1;
         while(size < n) size *= 2;
-        data.assign(size * 2, e);
+        data.assign(size * 2, identity());
     };
 
     T range(int l, int r) const {
         assert(0 <= l && l <= r && r <= n);
 
-        T left = e;
-        T right = e;
+        T left = identity();
+        T right = identity();
         int i = 0;
         while(l != r) {
             if(l & (1 << i)) {

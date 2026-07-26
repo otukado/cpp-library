@@ -9,5 +9,5 @@ int main() {
     std::int64_t m;
     std::int64_t n;
     std::cin >> m >> n;
-    std::cout << modint<1'000'000'007>(m).pow(n).value() << '\n';
+    std::cout << otukado::modint<1'000'000'007>(m).pow(n).value() << '\n';
 }
